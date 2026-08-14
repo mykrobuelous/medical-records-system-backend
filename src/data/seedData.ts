@@ -1,9 +1,57 @@
 import type { IDBrand } from '../utils/idUtils.js';
-import { ConsultationType, PatientType } from './data.types.js';
+import {
+    ConsultationType,
+    DiagnosisType,
+    InsuranceType,
+    MedicineType,
+    PatientType,
+} from './data.types.js';
 
 // Helper: cast a plain string into the branded ID type.
 // Replace this with however idUtils actually generates/casts IDs.
 const asId = (id: string) => id as IDBrand;
+
+export const seedInsuranceData: InsuranceType[] = [
+    { id: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000991'), insurance: 'PhilHealth' },
+    { id: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000992'), insurance: 'Maxicare' },
+    { id: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000993'), insurance: 'Intellicare' },
+];
+
+export const seedDiagnosisData: DiagnosisType[] = [
+    { id: asId('d1a7c2e0-1a2b-4c3d-8e4f-000000000901'), diagnosis: 'Hypertension' },
+    { id: asId('d1a7c2e0-1a2b-4c3d-8e4f-000000000902'), diagnosis: 'Type 2 Diabetes Mellitus' },
+    { id: asId('d1a7c2e0-1a2b-4c3d-8e4f-000000000903'), diagnosis: 'Upper Respiratory Tract Infection' },
+    { id: asId('d1a7c2e0-1a2b-4c3d-8e4f-000000000904'), diagnosis: 'Osteoarthritis' },
+    { id: asId('d1a7c2e0-1a2b-4c3d-8e4f-000000000905'), diagnosis: 'Acute Gastritis' },
+];
+
+export const seedMedicineData: MedicineType[] = [
+    {
+        id: asId('f1a7c2e0-1a2b-4c3d-8e4f-000000000801'),
+        medicine: 'Paracetamol',
+        description: 'Analgesic and antipyretic, 500mg tablet',
+    },
+    {
+        id: asId('f1a7c2e0-1a2b-4c3d-8e4f-000000000802'),
+        medicine: 'Losartan',
+        description: 'Angiotensin II receptor blocker, 50mg tablet',
+    },
+    {
+        id: asId('f1a7c2e0-1a2b-4c3d-8e4f-000000000803'),
+        medicine: 'Celecoxib',
+        description: 'NSAID for joint pain and inflammation, 200mg capsule',
+    },
+    {
+        id: asId('f1a7c2e0-1a2b-4c3d-8e4f-000000000804'),
+        medicine: 'Omeprazole',
+        description: 'Proton pump inhibitor for gastritis and reflux, 20mg capsule',
+    },
+    {
+        id: asId('f1a7c2e0-1a2b-4c3d-8e4f-000000000805'),
+        medicine: 'Cetirizine',
+        description: 'Antihistamine for allergic reactions, 10mg tablet',
+    },
+];
 
 export const seedPatientData: PatientType[] = [
     {
@@ -207,7 +255,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Temp 37.8C, throat mildly inflamed, lungs clear on auscultation.',
         assessment: 'Acute upper respiratory tract infection',
         plan: 'Paracetamol PRN, increase fluids, follow up in 1 week if not resolved',
-        vitals: { bloodPressure: '130/85', weight: 78, temperature: 37.8, heartRate: 88 },
+        vitals: { height: 168, weight: 78, temperature: 37.8 },
+        insurance: 'Personal',
+        payment: 500,
         createdAt: '2024-03-01T09:00:00Z',
     },
     {
@@ -219,7 +269,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'BP elevated on exam, no other significant findings.',
         assessment: 'Essential hypertension, controlled but borderline',
         plan: 'Continue Losartan 50mg OD, low-salt diet, recheck in 1 month',
-        vitals: { bloodPressure: '142/90', weight: 80, temperature: 36.7, heartRate: 76 },
+        vitals: { height: 168, weight: 80, temperature: 36.7 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000991'),
+        payment: 500,
         createdAt: '2024-06-15T09:00:00Z',
     },
 
@@ -233,7 +285,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Mild swelling both knees, no redness, full range of motion with discomfort.',
         assessment: 'Suspected early osteoarthritis',
         plan: 'Refer for knee X-ray, Celecoxib 200mg OD PRN, follow up after imaging',
-        vitals: { bloodPressure: '118/76', weight: 65, temperature: 36.5, heartRate: 72 },
+        vitals: { height: 155, weight: 65, temperature: 36.5 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000992'),
+        payment: 500,
         createdAt: '2024-02-20T10:00:00Z',
     },
     {
@@ -245,7 +299,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'X-ray shows mild joint space narrowing, consistent with early OA.',
         assessment: 'Early osteoarthritis, bilateral knees',
         plan: 'Continue Celecoxib PRN, start physical therapy referral, weight management advice',
-        vitals: { bloodPressure: '120/78', weight: 64, temperature: 36.6, heartRate: 70 },
+        vitals: { height: 155, weight: 64, temperature: 36.6 },
+        insurance: 'Personal',
+        payment: 500,
         createdAt: '2024-03-05T10:00:00Z',
     },
     {
@@ -257,7 +313,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Stable vitals, no acute findings.',
         assessment: 'Stable, osteoarthritis well managed',
         plan: 'Continue current regimen, annual checkup reminder',
-        vitals: { bloodPressure: '122/80', weight: 64, temperature: 36.5, heartRate: 74 },
+        vitals: { height: 155, weight: 64, temperature: 36.5 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000991'),
+        payment: 500,
         createdAt: '2024-07-10T10:00:00Z',
     },
 
@@ -271,7 +329,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Erythematous raised welts on arms and trunk, no facial swelling.',
         assessment: 'Acute allergic reaction (shellfish), mild',
         plan: 'Cetirizine 10mg OD x5 days, avoid shellfish, ER precautions explained',
-        vitals: { bloodPressure: '124/80', weight: 70, temperature: 36.9, heartRate: 90 },
+        vitals: { height: 172, weight: 70, temperature: 36.9 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000992'),
+        payment: 500,
         createdAt: '2024-04-02T11:00:00Z',
     },
     {
@@ -283,7 +343,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Skin clear, no residual lesions.',
         assessment: 'Resolved allergic reaction',
         plan: 'No medication needed, reinforced shellfish avoidance',
-        vitals: { bloodPressure: '118/76', weight: 70, temperature: 36.6, heartRate: 74 },
+        vitals: { height: 172, weight: 70, temperature: 36.6 },
+        insurance: 'Personal',
+        payment: 500,
         createdAt: '2024-04-09T11:00:00Z',
     },
 
@@ -297,7 +359,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Mild tenderness lower abdomen, no rebound, bowel sounds normal.',
         assessment: 'Likely functional dyspepsia vs. mild gastritis',
         plan: 'Omeprazole 20mg OD x2 weeks, bland diet, follow up if worsens',
-        vitals: { bloodPressure: '110/70', weight: 58, temperature: 36.7, heartRate: 80 },
+        vitals: { height: 158, weight: 58, temperature: 36.7 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000991'),
+        payment: 500,
         createdAt: '2024-05-11T09:30:00Z',
     },
     {
@@ -309,7 +373,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Abdomen soft, non-tender.',
         assessment: 'Improving gastritis',
         plan: 'Continue Omeprazole 1 more week, then PRN, dietary counseling reinforced',
-        vitals: { bloodPressure: '112/72', weight: 58, temperature: 36.6, heartRate: 76 },
+        vitals: { height: 158, weight: 58, temperature: 36.6 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000992'),
+        payment: 500,
         createdAt: '2024-05-25T09:30:00Z',
     },
 
@@ -323,7 +389,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Unremarkable exam, normal vitals.',
         assessment: 'Healthy adult, no acute issues',
         plan: 'Advised annual bloodwork, continue healthy lifestyle',
-        vitals: { bloodPressure: '116/74', weight: 82, temperature: 36.5, heartRate: 70 },
+        vitals: { height: 170, weight: 82, temperature: 36.5 },
+        insurance: 'Personal',
+        payment: 500,
         createdAt: '2024-01-30T08:30:00Z',
     },
     {
@@ -335,7 +403,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'BMI slightly elevated, otherwise normal exam.',
         assessment: 'Prediabetes',
         plan: 'Dietary modification, exercise plan, recheck FBS in 3 months',
-        vitals: { bloodPressure: '128/82', weight: 84, temperature: 36.6, heartRate: 74 },
+        vitals: { height: 170, weight: 84, temperature: 36.6 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000991'),
+        payment: 500,
         createdAt: '2024-08-14T08:30:00Z',
     },
 
@@ -349,7 +419,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Orthostatic BP drop noted, otherwise stable.',
         assessment: 'Orthostatic hypotension, likely mild dehydration',
         plan: 'Increase fluid intake, review current medications, follow up in 2 weeks',
-        vitals: { bloodPressure: '104/64', weight: 52, temperature: 36.4, heartRate: 68 },
+        vitals: { height: 150, weight: 52, temperature: 36.4 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000992'),
+        payment: 500,
         createdAt: '2024-02-14T10:00:00Z',
     },
     {
@@ -361,7 +433,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Stable BP sitting and standing.',
         assessment: 'Resolving orthostatic hypotension',
         plan: 'Continue hydration advice, monitor, routine follow-up in 1 month',
-        vitals: { bloodPressure: '112/70', weight: 52, temperature: 36.5, heartRate: 70 },
+        vitals: { height: 150, weight: 52, temperature: 36.5 },
+        insurance: 'Personal',
+        payment: 500,
         createdAt: '2024-02-28T10:00:00Z',
     },
     {
@@ -373,7 +447,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Mildly underweight for age/height, no acute distress.',
         assessment: 'Age-related decreased appetite, rule out underlying illness',
         plan: 'Basic bloodwork ordered, nutritional supplementation advised, follow up in 1 week',
-        vitals: { bloodPressure: '108/68', weight: 50, temperature: 36.3, heartRate: 72 },
+        vitals: { height: 150, weight: 50, temperature: 36.3 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000991'),
+        payment: 500,
         createdAt: '2024-06-20T10:00:00Z',
     },
 
@@ -387,7 +463,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Paraspinal muscle tenderness, no neuro deficits.',
         assessment: 'Acute mechanical lower back strain',
         plan: 'Muscle relaxant, rest, avoid heavy lifting, follow up if not improving',
-        vitals: { bloodPressure: '122/78', weight: 75, temperature: 36.6, heartRate: 76 },
+        vitals: { height: 165, weight: 75, temperature: 36.6 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000992'),
+        payment: 500,
         createdAt: '2024-03-18T13:00:00Z',
     },
     {
@@ -399,7 +477,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'No tenderness on exam, full range of motion.',
         assessment: 'Resolved back strain',
         plan: 'Discharge from active management, advised proper lifting technique',
-        vitals: { bloodPressure: '120/76', weight: 75, temperature: 36.5, heartRate: 72 },
+        vitals: { height: 165, weight: 75, temperature: 36.5 },
+        insurance: 'Personal',
+        payment: 500,
         createdAt: '2024-04-01T13:00:00Z',
     },
 
@@ -413,7 +493,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'No neuro deficits, normal exam.',
         assessment: 'Tension headache, likely eye strain related',
         plan: 'Recommend eye exam, Paracetamol PRN, ergonomic advice',
-        vitals: { bloodPressure: '114/72', weight: 55, temperature: 36.5, heartRate: 74 },
+        vitals: { height: 157, weight: 55, temperature: 36.5 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000991'),
+        payment: 500,
         createdAt: '2024-05-05T14:00:00Z',
     },
     {
@@ -425,7 +507,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'No acute findings.',
         assessment: 'Resolved tension headaches',
         plan: 'No further action needed, routine follow-up as needed',
-        vitals: { bloodPressure: '112/70', weight: 55, temperature: 36.4, heartRate: 72 },
+        vitals: { height: 157, weight: 55, temperature: 36.4 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000992'),
+        payment: 500,
         createdAt: '2024-07-22T14:00:00Z',
     },
 
@@ -439,7 +523,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Slightly elevated BP, heart sounds normal.',
         assessment: 'Rule out angina, possible cardiac etiology',
         plan: 'Refer to cardiologist, ECG requested, avoid strenuous activity meanwhile',
-        vitals: { bloodPressure: '148/92', weight: 88, temperature: 36.7, heartRate: 82 },
+        vitals: { height: 174, weight: 88, temperature: 36.7 },
+        insurance: 'Personal',
+        payment: 500,
         createdAt: '2024-01-15T08:00:00Z',
     },
     {
@@ -451,7 +537,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'ECG within normal limits per cardiology report.',
         assessment: 'Likely non-cardiac chest tightness, possible musculoskeletal',
         plan: 'Continue monitoring, lifestyle modification, low-dose aspirin as precaution',
-        vitals: { bloodPressure: '138/88', weight: 87, temperature: 36.6, heartRate: 78 },
+        vitals: { height: 174, weight: 87, temperature: 36.6 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000991'),
+        payment: 500,
         createdAt: '2024-01-29T08:00:00Z',
     },
     {
@@ -463,7 +551,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'BP improved compared to prior visits.',
         assessment: 'Hypertension, improving control',
         plan: 'Continue current management, recheck in 2 months',
-        vitals: { bloodPressure: '132/84', weight: 85, temperature: 36.5, heartRate: 76 },
+        vitals: { height: 174, weight: 85, temperature: 36.5 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000992'),
+        payment: 500,
         createdAt: '2024-06-03T08:00:00Z',
     },
 
@@ -477,7 +567,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Fundal height appropriate for gestational age, FHT normal.',
         assessment: 'Normal intrauterine pregnancy, 24 weeks',
         plan: 'Continue prenatal vitamins, next checkup in 4 weeks',
-        vitals: { bloodPressure: '110/70', weight: 68, temperature: 36.6, heartRate: 82 },
+        vitals: { height: 160, weight: 68, temperature: 36.6 },
+        insurance: 'Personal',
+        payment: 500,
         createdAt: '2024-04-19T09:00:00Z',
     },
     {
@@ -489,7 +581,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Mild pedal edema, BP normal, fundal height on track.',
         assessment: 'Normal pregnancy with mild dependent edema',
         plan: 'Elevate legs when resting, monitor BP, next checkup in 4 weeks',
-        vitals: { bloodPressure: '116/74', weight: 71, temperature: 36.5, heartRate: 84 },
+        vitals: { height: 160, weight: 71, temperature: 36.5 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000991'),
+        payment: 500,
         createdAt: '2024-05-17T09:00:00Z',
     },
 
@@ -503,7 +597,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: '2cm clean laceration on palm, no signs of infection.',
         assessment: 'Simple hand laceration',
         plan: 'Wound cleaned and dressed, tetanus toxoid given, follow up in 1 week',
-        vitals: { bloodPressure: '124/80', weight: 74, temperature: 36.7, heartRate: 80 },
+        vitals: { height: 169, weight: 74, temperature: 36.7 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000992'),
+        payment: 500,
         createdAt: '2024-03-08T15:00:00Z',
     },
     {
@@ -515,7 +611,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Wound edges well-approximated, no signs of infection.',
         assessment: 'Healing laceration',
         plan: 'Continue clean dressing, no further follow-up needed unless issues arise',
-        vitals: { bloodPressure: '120/78', weight: 74, temperature: 36.5, heartRate: 76 },
+        vitals: { height: 169, weight: 74, temperature: 36.5 },
+        insurance: 'Personal',
+        payment: 500,
         createdAt: '2024-03-15T15:00:00Z',
     },
 
@@ -529,7 +627,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Mild swelling in small joints of hands, no deformity yet.',
         assessment: 'Suspected early rheumatoid arthritis',
         plan: 'Refer to rheumatologist, basic labs (RF, CRP) ordered',
-        vitals: { bloodPressure: '126/82', weight: 60, temperature: 36.6, heartRate: 74 },
+        vitals: { height: 152, weight: 60, temperature: 36.6 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000991'),
+        payment: 500,
         createdAt: '2024-02-05T10:30:00Z',
     },
     {
@@ -541,7 +641,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'RF positive, CRP mildly elevated per labs.',
         assessment: 'Rheumatoid arthritis, early stage',
         plan: 'Start on rheumatology-directed treatment plan, monitor symptoms',
-        vitals: { bloodPressure: '128/84', weight: 60, temperature: 36.6, heartRate: 76 },
+        vitals: { height: 152, weight: 60, temperature: 36.6 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000992'),
+        payment: 500,
         createdAt: '2024-03-12T10:30:00Z',
     },
 
@@ -555,7 +657,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Mild swelling lateral ankle, tender on palpation, able to bear weight.',
         assessment: 'Grade 1 ankle sprain',
         plan: 'RICE protocol, ankle brace, avoid sports for 2 weeks',
-        vitals: { bloodPressure: '118/74', weight: 68, temperature: 36.6, heartRate: 78 },
+        vitals: { height: 171, weight: 68, temperature: 36.6 },
+        insurance: 'Personal',
+        payment: 500,
         createdAt: '2024-06-01T16:00:00Z',
     },
     {
@@ -567,7 +671,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Full range of motion, no tenderness.',
         assessment: 'Resolved ankle sprain',
         plan: 'Cleared to gradually return to sports, advised warm-up routine',
-        vitals: { bloodPressure: '116/72', weight: 68, temperature: 36.5, heartRate: 74 },
+        vitals: { height: 171, weight: 68, temperature: 36.5 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000991'),
+        payment: 500,
         createdAt: '2024-06-15T16:00:00Z',
     },
 
@@ -581,7 +687,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Neuro exam normal, no red flag signs.',
         assessment: 'Migraine without aura',
         plan: 'Prescribed abortive therapy, headache diary recommended, follow up in 1 month',
-        vitals: { bloodPressure: '116/74', weight: 57, temperature: 36.5, heartRate: 76 },
+        vitals: { height: 156, weight: 57, temperature: 36.5 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000992'),
+        payment: 500,
         createdAt: '2024-04-25T11:00:00Z',
     },
     {
@@ -593,7 +701,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'No acute findings.',
         assessment: 'Improving migraine control',
         plan: 'Continue current management, reassess in 2 months',
-        vitals: { bloodPressure: '114/72', weight: 57, temperature: 36.5, heartRate: 74 },
+        vitals: { height: 156, weight: 57, temperature: 36.5 },
+        insurance: 'Personal',
+        payment: 500,
         createdAt: '2024-05-30T11:00:00Z',
     },
 
@@ -607,7 +717,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'Mildly enlarged prostate on exam, no tenderness.',
         assessment: 'Suspected benign prostatic hyperplasia',
         plan: 'Refer to urologist, PSA test ordered, symptomatic management meanwhile',
-        vitals: { bloodPressure: '134/86', weight: 79, temperature: 36.6, heartRate: 78 },
+        vitals: { height: 167, weight: 79, temperature: 36.6 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000991'),
+        payment: 500,
         createdAt: '2024-01-08T08:00:00Z',
     },
     {
@@ -619,7 +731,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'PSA within normal range for age.',
         assessment: 'Benign prostatic hyperplasia, likely',
         plan: 'Started on alpha-blocker, urology consult still pending',
-        vitals: { bloodPressure: '130/84', weight: 79, temperature: 36.5, heartRate: 76 },
+        vitals: { height: 167, weight: 79, temperature: 36.5 },
+        insurance: asId('e1a7c2e0-1a2b-4c3d-8e4f-000000000992'),
+        payment: 500,
         createdAt: '2024-02-01T08:00:00Z',
     },
     {
@@ -632,7 +746,9 @@ export const seedConsultationData: ConsultationType[] = [
         objective: 'No acute findings, stable vitals.',
         assessment: 'BPH, well controlled on medication',
         plan: 'Continue current medication, routine follow-up in 6 months',
-        vitals: { bloodPressure: '128/82', weight: 78, temperature: 36.5, heartRate: 74 },
+        vitals: { height: 167, weight: 78, temperature: 36.5 },
+        insurance: 'Personal',
+        payment: 500,
         createdAt: '2024-05-20T08:00:00Z',
     },
 ];

@@ -1,0 +1,1 @@
+ALTER TABLE "consultations" ADD COLUMN "payment" integer NOT NULL;

@@ -29,10 +29,27 @@ export type ConsultationType = {
     assessment: string;
     plan: string;
     vitals: {
-        bloodPressure?: string; // e.g. "120/80"
+        height: number; // cm
         weight?: number; // kg
         temperature?: number; // Celsius
-        heartRate?: number; // bpm
     };
+    insurance: IDBrand | 'Personal'; // either a valid insurance ID or 'Personal' for self-pay
+    payment: number;
     createdAt: string;
+};
+
+export type InsuranceType = {
+    id: IDBrand;
+    insurance: string;
+};
+
+export type DiagnosisType = {
+    id: IDBrand;
+    diagnosis: string;
+};
+
+export type MedicineType = {
+    id: IDBrand;
+    medicine: string;
+    description: string;
 };

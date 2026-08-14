@@ -1,6 +1,12 @@
 import { Router } from 'express';
-import { seedConsultationData, seedPatientData } from '../../data/seedData.js';
-import { consultations, patients } from '../../db/schema.js';
+import {
+    seedConsultationData,
+    seedDiagnosisData,
+    seedInsuranceData,
+    seedMedicineData,
+    seedPatientData,
+} from '../../data/seedData.js';
+import { consultations, diagnoses, insurances, medicines, patients } from '../../db/schema.js';
 import { db } from '../../db/index.js';
 
 const seedRouter = Router();
@@ -23,8 +29,14 @@ seedRouter.post('/seed', async (_req, res) => {
         await db.transaction(async (tx) => {
             await tx.delete(consultations).execute();
             await tx.delete(patients).execute();
+            await tx.delete(insurances).execute();
+            await tx.delete(diagnoses).execute();
+            await tx.delete(medicines).execute();
 
             await tx.insert(patients).values(patientsToInsert).onConflictDoNothing();
+            await tx.insert(insurances).values(seedInsuranceData).onConflictDoNothing();
+            await tx.insert(diagnoses).values(seedDiagnosisData).onConflictDoNothing();
+            await tx.insert(medicines).values(seedMedicineData).onConflictDoNothing();
 
             await tx.insert(consultations).values(consultationsToInsert).onConflictDoNothing();
         });

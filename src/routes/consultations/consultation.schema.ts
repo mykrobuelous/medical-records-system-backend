@@ -1,10 +1,9 @@
 import { z } from 'zod';
 
 const vitalsSchema = z.object({
-    bloodPressure: z.string().optional(),
+    height: z.number(),
     weight: z.number().optional(),
     temperature: z.number().optional(),
-    heartRate: z.number().optional(),
 });
 
 const consultationFieldsSchema = z.object({
@@ -15,6 +14,8 @@ const consultationFieldsSchema = z.object({
     assessment: z.string().trim().min(1),
     plan: z.string().trim().min(1),
     vitals: vitalsSchema.optional(),
+    insurance: z.union([z.uuid(), z.literal('Personal')]),
+    payment: z.number(),
 });
 
 export const createConsultationSchema = consultationFieldsSchema.extend({

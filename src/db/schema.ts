@@ -1,4 +1,14 @@
-import { pgTable, uuid, varchar, text, date, timestamp, pgEnum, jsonb } from 'drizzle-orm/pg-core';
+import {
+    pgTable,
+    uuid,
+    varchar,
+    text,
+    date,
+    timestamp,
+    pgEnum,
+    jsonb,
+    integer,
+} from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 // ---- Enums ----
@@ -34,6 +44,24 @@ export const patients = pgTable('patients', {
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 });
 
+// ---- Insurance / Diagnosis / Medicine (lookup resources) ----
+
+export const insurances = pgTable('insurances', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    insurance: varchar('insurance', { length: 255 }).notNull(),
+});
+
+export const diagnoses = pgTable('diagnoses', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    diagnosis: varchar('diagnosis', { length: 255 }).notNull(),
+});
+
+export const medicines = pgTable('medicines', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    medicine: varchar('medicine', { length: 255 }).notNull(),
+    description: text('description').notNull(),
+});
+
 // ---- Consultations ----
 
 export const consultations = pgTable('consultations', {
@@ -53,11 +81,17 @@ export const consultations = pgTable('consultations', {
     // Vitals — stored as jsonb to mirror the nested `vitals` object in ConsultationType.
     // See note below on the tradeoffs of this vs. flat columns.
     vitals: jsonb('vitals').$type<{
-        bloodPressure?: string;
+        height: number;
         weight?: number;
         temperature?: number;
-        heartRate?: number;
     }>(),
+
+    // Either an insurances.id (uuid string) or the literal 'Personal' for self-pay —
+    // mirrors ConsultationType.insurance. Not a DB-level FK since 'Personal' isn't a
+    // valid insurances row; validated at the zod layer instead.
+    insurance: varchar('insurance', { length: 36 }).notNull(),
+
+    payment: integer('payment').notNull(),
 
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 });

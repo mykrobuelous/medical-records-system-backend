@@ -8,6 +8,20 @@
       "when": 1786343121807,
       "tag": "0000_colossal_nighthawk",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1786719361852,
+      "tag": "0001_green_siren",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1786720503318,
+      "tag": "0002_typical_emma_frost",
+      "breakpoints": true
     }
   ]
 }
