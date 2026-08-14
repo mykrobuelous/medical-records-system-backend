@@ -8,11 +8,15 @@
         "dev": "nodemon",
         "build": "tsc",
         "start": "node dist/index.js",
-        "lint": "eslint src"
+        "lint": "eslint src",
+        "migrate": "drizzle-kit migrate"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
+    "engines": {
+        "node": ">=20"
+    },
     "dependencies": {
         "@types/jsonwebtoken": "^9.0.10",
         "cors": "^2.8.6",
