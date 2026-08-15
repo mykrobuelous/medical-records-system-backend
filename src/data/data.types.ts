@@ -29,7 +29,7 @@ export type ConsultationType = {
     assessment: string;
     plan: string;
     vitals: {
-        height: number; // cm
+        height?: number; // cm
         weight?: number; // kg
         temperature?: number; // Celsius
     };

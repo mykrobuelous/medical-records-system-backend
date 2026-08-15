@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const vitalsSchema = z.object({
-    height: z.number(),
+    height: z.number().optional(),
     weight: z.number().optional(),
     temperature: z.number().optional(),
 });

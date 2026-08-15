@@ -81,7 +81,7 @@ export const consultations = pgTable('consultations', {
     // Vitals — stored as jsonb to mirror the nested `vitals` object in ConsultationType.
     // See note below on the tradeoffs of this vs. flat columns.
     vitals: jsonb('vitals').$type<{
-        height: number;
+        height?: number;
         weight?: number;
         temperature?: number;
     }>(),
